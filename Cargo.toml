@@ -1,6 +1,6 @@
 [package]
 name = "bevy_ghx_grid"
-version = "0.2.0"
+version = "0.3.0-dev"
 description = "Bevy plugins for 2D & 3D grids"
 repository = "https://github.com/Henauxg/bevy_ghx_grid"
 documentation = "https://docs.rs/bevy_ghx_grid"
