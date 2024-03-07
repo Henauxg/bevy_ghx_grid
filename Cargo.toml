@@ -2,8 +2,9 @@
 name = "bevy_ghx_grid"
 version = "0.2.0"
 description = "Bevy plugins for 2D & 3D grids"
-repository = "https://github.com/Henauxg/ghx_grid"
+repository = "https://github.com/Henauxg/bevy_ghx_grid"
 documentation = "https://docs.rs/bevy_ghx_grid"
+readme = "README.md"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 keywords = ["gamedev", "grid", "bevy"]
