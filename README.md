@@ -6,8 +6,7 @@
 [![bevy_ghx_grid on crates.io](https://img.shields.io/crates/v/bevy_ghx_grid)](https://crates.io/crates/bevy_ghx_grid)
 [![bevy_ghx_grid on docs.io](https://docs.rs/bevy_ghx_grid/badge.svg)](https://docs.rs/bevy_ghx_grid)
 
-
-[`Bevy`](https://github.com/bevyengine/bevy) plugins and utilities for [`ghx_grid`](https://github.com/Henauxg/ghx_grid)
+Uses and exports [`ghx_grid`](https://github.com/Henauxg/ghx_grid), as well as additional plugins and utilities dedicated to [`Bevy`](https://github.com/bevyengine/bevy).
 
 </div>
 
