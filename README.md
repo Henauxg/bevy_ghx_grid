@@ -34,10 +34,10 @@ Use it by inserting a `DebugGridView3d` bundle on your `Grid` entity (or `DebugG
 
 ## Compatible Bevy versions
 
-| `bevy_ghx_grid` | `bevy` |
-| :-------------- | :----- |
-| `0.2`           | `0.13` |
-| `0.1`           | `0.12` |
+| **bevy_ghx_grid** | **ghx_grid** | **bevy** |
+| :---------------- | :----------- | :------- |
+| 0.2               | 0.2          | 0.13     |
+| 0.1               | 0.1          | 0.12     |
 
 ## License
 
