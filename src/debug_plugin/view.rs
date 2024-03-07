@@ -1,7 +1,8 @@
 use bevy::{
     ecs::{component::Component, query::With, system::Query},
-    gizmos::gizmos::Gizmos,
+    gizmos::{config::GizmoConfigGroup, gizmos::Gizmos},
     math::{Vec2, Vec3, Vec3Swizzles},
+    reflect::Reflect,
     render::color::Color,
     transform::components::Transform,
 };
@@ -16,6 +17,10 @@ pub struct DebugGridView3d;
 /// 2d-specific (`Camera2d`) component-marker of a grid debug view
 #[derive(Component, Default)]
 pub struct DebugGridView2d;
+
+#[derive(Default, Reflect, GizmoConfigGroup)]
+/// The Gizmo configuration for grid views
+pub struct GridViewGroup;
 
 /// Component used on all debug grid to store configuration.
 ///

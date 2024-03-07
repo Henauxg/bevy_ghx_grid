@@ -7,6 +7,7 @@ use bevy::{
         schedule::{apply_deferred, IntoSystemConfigs},
         system::Query,
     },
+    gizmos::AppGizmoBuilder,
     math::{Vec2, Vec3},
     transform::TransformSystem,
 };
@@ -15,10 +16,11 @@ use ghx_grid::{coordinate_system::CoordinateSystem, grid::GridPosition};
 use self::{
     markers::{
         despawn_debug_markers, draw_debug_markers_2d, draw_debug_markers_3d,
-        insert_transform_on_new_markers, MarkerDespawnEvent,
+        insert_transform_on_new_markers, MarkerDespawnEvent, MarkersGroup,
     },
     view::{
         draw_debug_grids_2d, draw_debug_grids_3d, DebugGridView, DebugGridView2d, DebugGridView3d,
+        GridViewGroup,
     },
 };
 
@@ -59,7 +61,9 @@ impl<C: CoordinateSystem> Plugin for GridDebugPlugin<C> {
                         .after(TransformSystem::TransformPropagate),
                 ),
             )
-            .add_event::<MarkerDespawnEvent>();
+            .add_event::<MarkerDespawnEvent>()
+            .init_gizmo_group::<MarkersGroup>()
+            .init_gizmo_group::<GridViewGroup>();
     }
 }
 

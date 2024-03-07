@@ -6,10 +6,11 @@ use bevy::{
         query::{With, Without},
         system::{Commands, Query},
     },
-    gizmos::gizmos::Gizmos,
+    gizmos::{config::GizmoConfigGroup, gizmos::Gizmos},
     hierarchy::{BuildChildren, DespawnRecursiveExt, Parent},
     math::Vec3Swizzles,
     prelude::SpatialBundle,
+    reflect::Reflect,
     render::color::Color,
     transform::components::{GlobalTransform, Transform},
 };
@@ -45,6 +46,10 @@ impl GridMarker {
         Self { color, pos }
     }
 }
+
+#[derive(Default, Reflect, GizmoConfigGroup)]
+/// The Gizmo configuration for grid markers
+pub struct MarkersGroup;
 
 /// Helper to spwan a [`GridMarker`] `Entity` that will be displayed by the [`super::GridDebugPlugin`]
 pub fn spawn_marker(
