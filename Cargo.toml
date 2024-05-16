@@ -1,6 +1,6 @@
 [package]
 name = "bevy_ghx_grid"
-version = "0.3.0-dev"
+version = "0.2.1"
 description = "Bevy plugins for 2D & 3D grids"
 repository = "https://github.com/Henauxg/bevy_ghx_grid"
 documentation = "https://docs.rs/bevy_ghx_grid"
@@ -9,6 +9,7 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 keywords = ["gamedev", "grid", "bevy"]
 categories = ["game-development"]
+exclude = ["assets/"]
 
 [features]
 default = ["reflect", "debug-plugin"]
