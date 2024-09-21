@@ -6,9 +6,7 @@ use bevy::{
     render::color::Color,
     transform::components::Transform,
 };
-use ghx_grid::grid::GridDefinition;
-
-use super::CoordinateSystem;
+use ghx_grid::cartesian::{coordinates::CartesianCoordinates, grid::CartesianGrid};
 
 /// 3d-specific (`Camera3d`) component-marker of a grid debug view
 #[derive(Component, Default)]
@@ -61,9 +59,9 @@ impl DebugGridView {
 /// System that uses [`Gizmos`] to render the debug grid every frame.
 ///
 /// To be used with a `Camera3d`
-pub fn draw_debug_grids_3d<T: CoordinateSystem>(
+pub fn draw_debug_grids_3d<T: CartesianCoordinates>(
     mut gizmos: Gizmos,
-    debug_grids: Query<(&Transform, &GridDefinition<T>, &DebugGridView), With<DebugGridView3d>>,
+    debug_grids: Query<(&Transform, &CartesianGrid<T>, &DebugGridView), With<DebugGridView3d>>,
 ) {
     for (transform, grid, view) in debug_grids.iter() {
         if !view.display_grid {
@@ -113,9 +111,9 @@ pub fn draw_debug_grids_3d<T: CoordinateSystem>(
 /// System that uses [`Gizmos`] to render the debug grid every frame.
 ///
 /// To be used with a `Camera2d`
-pub fn draw_debug_grids_2d<T: CoordinateSystem>(
+pub fn draw_debug_grids_2d<T: CartesianCoordinates>(
     mut gizmos: Gizmos,
-    debug_grids: Query<(&Transform, &GridDefinition<T>, &DebugGridView), With<DebugGridView2d>>,
+    debug_grids: Query<(&Transform, &CartesianGrid<T>, &DebugGridView), With<DebugGridView2d>>,
 ) {
     for (transform, grid, view) in debug_grids.iter() {
         if !view.display_grid {

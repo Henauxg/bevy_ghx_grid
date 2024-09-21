@@ -14,7 +14,7 @@ use bevy::{
     render::color::Color,
     transform::components::{GlobalTransform, Transform},
 };
-use ghx_grid::grid::GridPosition;
+use ghx_grid::cartesian::coordinates::CartesianPosition;
 
 use super::{
     get_translation_from_grid_pos_3d,
@@ -38,11 +38,11 @@ pub struct GridMarker {
     /// Color of the marker gizmo
     pub color: Color,
     /// Grid position of the marker
-    pub pos: GridPosition,
+    pub pos: CartesianPosition,
 }
 impl GridMarker {
     /// Helper to construct a marker
-    pub fn new(color: Color, pos: GridPosition) -> Self {
+    pub fn new(color: Color, pos: CartesianPosition) -> Self {
         Self { color, pos }
     }
 }
@@ -56,7 +56,7 @@ pub fn spawn_marker(
     commands: &mut Commands,
     grid_entity: Entity,
     color: Color,
-    pos: GridPosition,
+    pos: CartesianPosition,
 ) -> Entity {
     let marker_entity = commands.spawn(GridMarker { color, pos }).id();
     commands.entity(grid_entity).add_child(marker_entity);

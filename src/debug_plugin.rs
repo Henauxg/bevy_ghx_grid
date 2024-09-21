@@ -2,16 +2,15 @@ use std::marker::PhantomData;
 
 use bevy::{
     app::{App, Plugin, PostUpdate, Update},
-    ecs::{
-        bundle::Bundle,
-        schedule::{apply_deferred, IntoSystemConfigs},
-        system::Query,
-    },
+    ecs::{bundle::Bundle, schedule::IntoSystemConfigs, system::Query},
     gizmos::AppGizmoBuilder,
     math::{Vec2, Vec3},
     transform::TransformSystem,
 };
-use ghx_grid::{coordinate_system::CoordinateSystem, grid::GridPosition};
+use ghx_grid::{
+    cartesian::coordinates::{CartesianCoordinates, CartesianPosition},
+    coordinate_system::CoordinateSystem,
+};
 
 use self::{
     markers::{
@@ -29,7 +28,7 @@ pub mod markers;
 /// Components and systems to visualize 2d & 3d grids
 pub mod view;
 
-/// Bevy plugin used to visualize [`ghx_grid::grid::GridDefinition`] and additional debug markers created with [`markers::MarkerDespawnEvent`].
+/// Bevy plugin used to visualize cartesian [`ghx_grid::grid::Grid`] and additional debug markers created with [`markers::MarkerDespawnEvent`].
 pub struct GridDebugPlugin<C: CoordinateSystem> {
     typestate: PhantomData<C>,
 }
@@ -43,20 +42,14 @@ impl<T: CoordinateSystem> GridDebugPlugin<T> {
     }
 }
 
-impl<C: CoordinateSystem> Plugin for GridDebugPlugin<C> {
+impl<C: CartesianCoordinates> Plugin for GridDebugPlugin<C> {
     fn build(&self, app: &mut App) {
         app.add_systems(Update, (draw_debug_grids_3d::<C>, draw_debug_grids_2d::<C>))
             .add_systems(
                 PostUpdate,
                 (
-                    ((
-                        despawn_debug_markers,
-                        apply_deferred,
-                        insert_transform_on_new_markers,
-                        apply_deferred,
-                    )
-                        .chain())
-                    .before(TransformSystem::TransformPropagate),
+                    ((despawn_debug_markers, insert_transform_on_new_markers).chain())
+                        .before(TransformSystem::TransformPropagate),
                     (draw_debug_markers_3d, draw_debug_markers_2d)
                         .after(TransformSystem::TransformPropagate),
                 ),
@@ -101,9 +94,9 @@ impl Default for DebugGridView2dBundle {
     }
 }
 
-/// Returns a position as a [`Vec3`] in world units (center of the grid node) from a [`GridPosition`] accompanied by a `node_size`, the size of a grid node in world units.
+/// Returns a position as a [`Vec3`] in world units (center of the grid node) from a [`CartesianPosition`] accompanied by a `node_size`, the size of a grid node in world units.
 #[inline]
-pub fn get_translation_from_grid_pos_3d(grid_pos: &GridPosition, node_size: &Vec3) -> Vec3 {
+pub fn get_translation_from_grid_pos_3d(grid_pos: &CartesianPosition, node_size: &Vec3) -> Vec3 {
     Vec3 {
         x: (grid_pos.x as f32 + 0.5) * node_size.x,
         y: (grid_pos.y as f32 + 0.5) * node_size.y,
@@ -121,9 +114,9 @@ pub fn get_translation_from_grid_coords_3d(x: u32, y: u32, z: u32, node_size: &V
     }
 }
 
-/// Returns a position as a [`Vec2`] in world units (center of the grid node) from a [`GridPosition`] accompanied by a `node_size`, the size of a grid node in world units.
+/// Returns a position as a [`Vec2`] in world units (center of the grid node) from a [`CartesianPosition`] accompanied by a `node_size`, the size of a grid node in world units.
 #[inline]
-pub fn get_translation_from_grid_pos_2d(grid_pos: &GridPosition, node_size: &Vec2) -> Vec2 {
+pub fn get_translation_from_grid_pos_2d(grid_pos: &CartesianPosition, node_size: &Vec2) -> Vec2 {
     Vec2 {
         x: (grid_pos.x as f32 + 0.5) * node_size.x,
         y: (grid_pos.y as f32 + 0.5) * node_size.y,
