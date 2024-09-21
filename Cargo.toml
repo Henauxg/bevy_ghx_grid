@@ -1,6 +1,6 @@
 [package]
 name = "bevy_ghx_grid"
-version = "0.3.0"
+version = "0.4.0"
 description = "Bevy plugins for 2D & 3D grids"
 repository = "https://github.com/Henauxg/bevy_ghx_grid"
 documentation = "https://docs.rs/bevy_ghx_grid"
@@ -22,10 +22,12 @@ debug-plugin = [
 ]
 
 [dependencies]
-ghx_grid = { version = "0.3.1", features = ["bevy"] }
+ghx_grid = { git = "https://github.com/Henauxg/ghx_grid", version = "0.4.0", features = [
+    "bevy",
+] }
 
 # Optional dependencies
 
 # Only enabled when the "debug-plugin" feature is enabled
-bevy = { version = "0.13.0", optional = true, default-features = false, features = [
+bevy = { version = "0.14.0", optional = true, default-features = false, features = [
 ] }

@@ -1,9 +1,9 @@
 use bevy::{
+    color::Color,
     ecs::{component::Component, query::With, system::Query},
     gizmos::{config::GizmoConfigGroup, gizmos::Gizmos},
     math::{Vec2, Vec3, Vec3Swizzles},
     reflect::Reflect,
-    render::color::Color,
     transform::components::Transform,
 };
 use ghx_grid::cartesian::{coordinates::CartesianCoordinates, grid::CartesianGrid};

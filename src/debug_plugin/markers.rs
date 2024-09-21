@@ -1,4 +1,5 @@
 use bevy::{
+    color::Color,
     ecs::{
         component::Component,
         entity::Entity,
@@ -11,7 +12,6 @@ use bevy::{
     math::Vec3Swizzles,
     prelude::SpatialBundle,
     reflect::Reflect,
-    render::color::Color,
     transform::components::{GlobalTransform, Transform},
 };
 use ghx_grid::cartesian::coordinates::CartesianPosition;
