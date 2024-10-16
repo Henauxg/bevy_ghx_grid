@@ -15,6 +15,8 @@ exclude = ["assets/"]
 default = ["reflect", "debug-plugin"]
 # Enables some reflect derives in ghx_grid
 reflect = ["ghx_grid/reflect"]
+# Enables some serde derives in ghx_grid
+serde = ["ghx_grid/serde"]
 # Compiles the grid debug plugin and its systems
 debug-plugin = [
     "bevy/bevy_gizmos", # Support drawing debug lines and shapes
