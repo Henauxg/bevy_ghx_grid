@@ -9,8 +9,8 @@ use bevy::{
     },
     gizmos::{config::GizmoConfigGroup, gizmos::Gizmos},
     hierarchy::{BuildChildren, DespawnRecursiveExt, Parent},
-    math::Vec3Swizzles,
-    prelude::SpatialBundle,
+    math::{Isometry2d, Vec3Swizzles},
+    prelude::Visibility,
     reflect::Reflect,
     transform::components::{GlobalTransform, Transform},
 };
@@ -109,11 +109,10 @@ pub fn insert_transform_on_new_markers(
     for (grid_entity, marker_entity, marker) in &mut new_markers {
         if let Ok(view) = debug_grid_views.get(grid_entity.get()) {
             let marker_translation = get_translation_from_grid_pos_3d(&marker.pos, &view.node_size);
-            commands
-                .entity(marker_entity)
-                .try_insert(SpatialBundle::from_transform(Transform::from_translation(
-                    marker_translation,
-                )));
+            commands.entity(marker_entity).try_insert((
+                Transform::from_translation(marker_translation),
+                Visibility::default(),
+            ));
         }
     }
 }
@@ -156,8 +155,7 @@ pub fn draw_debug_markers_2d(
             let node_size = view.node_size.xy();
             let (_scale, rot, translation) = global_transform.to_scale_rotation_translation();
             gizmos.rect_2d(
-                translation.xy(),
-                rot.to_axis_angle().1,
+                Isometry2d::new(translation.xy(), rot.to_axis_angle().1.into()),
                 // Scale a bit so that it is not on the grid outlines.
                 node_size * 1.05,
                 marker.color,
