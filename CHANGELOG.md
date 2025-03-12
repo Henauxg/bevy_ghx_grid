@@ -1,8 +1,10 @@
 # Changelog
 
-## Version 0.5.0 (TBD)
+## Version 0.5.0 (2024-03-12)
 
 - Update to use `ghx_grid` v0.5 and `bevy` 0.15.0
+- Rename `GridViewGroup` to `GridViewGizmoGroup`
+- Require component `DebugGridView` for `DebugGridView2d` & `DebugGridView3d`
 
 ## Version 0.4.0 (2024-10-24)
 
