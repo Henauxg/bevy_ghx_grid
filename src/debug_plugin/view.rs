@@ -10,15 +10,17 @@ use ghx_grid::cartesian::{coordinates::CartesianCoordinates, grid::CartesianGrid
 
 /// 3d-specific (`Camera3d`) component-marker of a grid debug view
 #[derive(Component, Default)]
+#[require(DebugGridView)]
 pub struct DebugGridView3d;
 
 /// 2d-specific (`Camera2d`) component-marker of a grid debug view
 #[derive(Component, Default)]
+#[require(DebugGridView)]
 pub struct DebugGridView2d;
 
 #[derive(Default, Reflect, GizmoConfigGroup)]
 /// The Gizmo configuration for grid views
-pub struct GridViewGroup;
+pub struct GridViewGizmoGroup;
 
 /// Component used on all debug grid to store configuration.
 ///

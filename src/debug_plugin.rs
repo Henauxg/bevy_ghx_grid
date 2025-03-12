@@ -19,7 +19,7 @@ use self::{
     },
     view::{
         draw_debug_grids_2d, draw_debug_grids_3d, DebugGridView, DebugGridView2d, DebugGridView3d,
-        GridViewGroup,
+        GridViewGizmoGroup,
     },
 };
 
@@ -56,7 +56,7 @@ impl<C: CartesianCoordinates> Plugin for GridDebugPlugin<C> {
             )
             .add_event::<MarkerDespawnEvent>()
             .init_gizmo_group::<MarkersGroup>()
-            .init_gizmo_group::<GridViewGroup>();
+            .init_gizmo_group::<GridViewGizmoGroup>();
     }
 }
 
