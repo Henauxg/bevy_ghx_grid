@@ -24,12 +24,10 @@ debug-plugin = [
 ]
 
 [dependencies]
-ghx_grid = { git = "https://github.com/Henauxg/ghx_grid.git", version = "0.5.0", features = [
-    "bevy",
-] }
+ghx_grid = { version = "0.5.0", features = ["bevy"] }
 
 # Optional dependencies
 
 # Only enabled when the "debug-plugin" feature is enabled
-bevy = { version = "0.15.0-rc.3", optional = true, default-features = false, features = [
+bevy = { version = "0.15", optional = true, default-features = false, features = [
 ] }
