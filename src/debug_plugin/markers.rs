@@ -100,7 +100,7 @@ pub fn despawn_debug_markers(
     }
 }
 
-/// This system automatically inserts a [`SpatialBundle`] with a correct `Transform` translation to all entities with a [`GridMarker`] component.
+/// This system automatically inserts a correct `Transform` & `Visibility` component to all entities with a [`GridMarker`] component.
 pub fn insert_transform_on_new_markers(
     mut commands: Commands,
     debug_grid_views: Query<&DebugGridView>,

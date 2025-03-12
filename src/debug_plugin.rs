@@ -60,7 +60,7 @@ impl<C: CartesianCoordinates> Plugin for GridDebugPlugin<C> {
     }
 }
 
-/// Add this bundle to a [`bevy::prelude::Entity`] with a [`ghx_grid::grid::GridDefinition`] if you are using a 3d camera `Camera3d`.
+/// Add this bundle to a [`bevy::prelude::Entity`] with a [`ghx_grid::cartesian::grid::CartesianGrid`] if you are using a 3d camera `Camera3d`.
 #[derive(Bundle)]
 pub struct DebugGridView3dBundle {
     /// Debug view configuration of the grid
@@ -77,7 +77,7 @@ impl Default for DebugGridView3dBundle {
     }
 }
 
-/// Add this bundle to a [`bevy::prelude::Entity`] with a [`ghx_grid::grid::GridDefinition`] if you are using a 2d camera `Camera2d`.
+/// Add this bundle to a [`bevy::prelude::Entity`] with a [`ghx_grid::cartesian::grid::CartesianGrid`] if you are using a 2d camera `Camera2d`.
 #[derive(Bundle)]
 pub struct DebugGridView2dBundle {
     /// Debug view configuration of the grid
