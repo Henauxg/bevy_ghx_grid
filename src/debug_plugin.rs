@@ -2,7 +2,7 @@ use std::marker::PhantomData;
 
 use bevy::{
     app::{App, Plugin, PostUpdate, Update},
-    ecs::{bundle::Bundle, schedule::IntoSystemConfigs, system::Query},
+    ecs::{bundle::Bundle, schedule::IntoScheduleConfigs, system::Query},
     gizmos::AppGizmoBuilder,
     math::{Vec2, Vec3},
     transform::TransformSystem,

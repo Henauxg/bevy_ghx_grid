@@ -4,11 +4,11 @@ use bevy::{
         component::Component,
         entity::Entity,
         event::{Event, EventReader},
+        hierarchy::ChildOf,
         query::{With, Without},
         system::{Commands, Query},
     },
     gizmos::{config::GizmoConfigGroup, gizmos::Gizmos},
-    hierarchy::{BuildChildren, DespawnRecursiveExt, Parent},
     math::{Isometry2d, Vec3Swizzles},
     prelude::Visibility,
     reflect::Reflect,
@@ -71,20 +71,20 @@ pub fn spawn_marker(
 pub fn despawn_debug_markers(
     mut commands: Commands,
     mut marker_events: EventReader<MarkerDespawnEvent>,
-    markers: Query<(&Parent, Entity), With<GridMarker>>,
+    markers: Query<(&ChildOf, Entity), With<GridMarker>>,
 ) {
     for marker_event in marker_events.read() {
         match marker_event {
             MarkerDespawnEvent::Marker(marker_entity) => {
                 if let Ok(_) = markers.get(*marker_entity) {
-                    commands.entity(*marker_entity).despawn_recursive();
+                    commands.entity(*marker_entity).despawn();
                 }
             }
             MarkerDespawnEvent::Grid(grid_entity) => {
                 for (parent_grid, marker_entity) in markers.iter() {
-                    if parent_grid.get() == *grid_entity {
+                    if parent_grid.parent() == *grid_entity {
                         if let Ok(_) = markers.get(marker_entity) {
-                            commands.entity(marker_entity).despawn_recursive();
+                            commands.entity(marker_entity).despawn();
                         }
                     }
                 }
@@ -92,7 +92,7 @@ pub fn despawn_debug_markers(
             MarkerDespawnEvent::All => {
                 for (_parent_grid, marker_entity) in markers.iter() {
                     if let Ok(_) = markers.get(marker_entity) {
-                        commands.entity(marker_entity).despawn_recursive();
+                        commands.entity(marker_entity).despawn();
                     }
                 }
             }
@@ -104,10 +104,10 @@ pub fn despawn_debug_markers(
 pub fn insert_transform_on_new_markers(
     mut commands: Commands,
     debug_grid_views: Query<&DebugGridView>,
-    mut new_markers: Query<(&Parent, Entity, &GridMarker), Without<Transform>>,
+    mut new_markers: Query<(&ChildOf, Entity, &GridMarker), Without<Transform>>,
 ) {
     for (grid_entity, marker_entity, marker) in &mut new_markers {
-        if let Ok(view) = debug_grid_views.get(grid_entity.get()) {
+        if let Ok(view) = debug_grid_views.get(grid_entity.parent()) {
             let marker_translation = get_translation_from_grid_pos_3d(&marker.pos, &view.node_size);
             commands.entity(marker_entity).try_insert((
                 Transform::from_translation(marker_translation),
@@ -123,10 +123,10 @@ pub fn insert_transform_on_new_markers(
 pub fn draw_debug_markers_3d(
     mut gizmos: Gizmos,
     debug_grid_views: Query<&DebugGridView, With<DebugGridView3d>>,
-    markers: Query<(&Parent, &GlobalTransform, &GridMarker)>,
+    markers: Query<(&ChildOf, &GlobalTransform, &GridMarker)>,
 ) {
     for (parent_grid, global_transform, marker) in markers.iter() {
-        if let Ok(view) = debug_grid_views.get(parent_grid.get()) {
+        if let Ok(view) = debug_grid_views.get(parent_grid.parent()) {
             if !view.display_markers {
                 continue;
             }
@@ -145,10 +145,10 @@ pub fn draw_debug_markers_3d(
 pub fn draw_debug_markers_2d(
     mut gizmos: Gizmos,
     debug_grid_views: Query<&DebugGridView, With<DebugGridView2d>>,
-    markers: Query<(&Parent, &GlobalTransform, &GridMarker)>,
+    markers: Query<(&ChildOf, &GlobalTransform, &GridMarker)>,
 ) {
     for (parent_grid, global_transform, marker) in markers.iter() {
-        if let Ok(view) = debug_grid_views.get(parent_grid.get()) {
+        if let Ok(view) = debug_grid_views.get(parent_grid.parent()) {
             if !view.display_markers {
                 continue;
             }
