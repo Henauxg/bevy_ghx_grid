@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 0.6.0 (TBD)
+## Version 0.6.0 (2025-06-24)
 
 - Update to use `ghx_grid` v0.6.0 and `bevy` 0.16.0
 
