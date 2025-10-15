@@ -3,8 +3,8 @@ use bevy::{
     ecs::{
         component::Component,
         entity::Entity,
-        event::{Event, EventReader},
         hierarchy::ChildOf,
+        message::{Message, MessageReader},
         query::{With, Without},
         system::{Commands, Query},
     },
@@ -22,7 +22,7 @@ use super::{
 };
 
 /// Event used to despawn markers on a [`DebugGridView`]
-#[derive(Event)]
+#[derive(Message)]
 pub enum MarkerDespawnEvent {
     /// Send this event to delete a marker Entity
     Marker(Entity),
@@ -70,7 +70,7 @@ pub fn spawn_marker(
 /// Called in the [`bevy::app::PostUpdate`] schedule by default, by the [`crate::debug_plugin::GridDebugPlugin`]
 pub fn despawn_debug_markers(
     mut commands: Commands,
-    mut marker_events: EventReader<MarkerDespawnEvent>,
+    mut marker_events: MessageReader<MarkerDespawnEvent>,
     markers: Query<(&ChildOf, Entity), With<GridMarker>>,
 ) {
     for marker_event in marker_events.read() {

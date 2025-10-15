@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.7.0 (2025-10-15)
+
+- Update to use `ghx_grid` v0.7.0 and `bevy` 0.17.0
+- 
 ## Version 0.6.0 (2025-06-24)
 
 - Update to use `ghx_grid` v0.6.0 and `bevy` 0.16.0

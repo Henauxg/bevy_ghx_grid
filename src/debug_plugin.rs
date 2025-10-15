@@ -5,7 +5,7 @@ use bevy::{
     ecs::{bundle::Bundle, schedule::IntoScheduleConfigs, system::Query},
     gizmos::AppGizmoBuilder,
     math::{Vec2, Vec3},
-    transform::TransformSystem,
+    transform::TransformSystems,
 };
 use ghx_grid::{
     cartesian::coordinates::{CartesianCoordinates, CartesianPosition},
@@ -49,12 +49,12 @@ impl<C: CartesianCoordinates> Plugin for GridDebugPlugin<C> {
                 PostUpdate,
                 (
                     ((despawn_debug_markers, insert_transform_on_new_markers).chain())
-                        .before(TransformSystem::TransformPropagate),
+                        .before(TransformSystems::Propagate),
                     (draw_debug_markers_3d, draw_debug_markers_2d)
-                        .after(TransformSystem::TransformPropagate),
+                        .after(TransformSystems::Propagate),
                 ),
             )
-            .add_event::<MarkerDespawnEvent>()
+            .add_message::<MarkerDespawnEvent>()
             .init_gizmo_group::<MarkersGroup>()
             .init_gizmo_group::<GridViewGizmoGroup>();
     }
