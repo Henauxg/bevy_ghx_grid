@@ -130,7 +130,7 @@ pub fn draw_debug_markers_3d(
             if !view.display_markers {
                 continue;
             }
-            gizmos.cuboid(
+            gizmos.cube(
                 // Scale a bit so that it is not on the grid outlines.
                 Transform::from(*global_transform).with_scale(view.node_size * 1.05),
                 marker.color,

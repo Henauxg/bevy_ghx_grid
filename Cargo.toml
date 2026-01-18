@@ -1,6 +1,6 @@
 [package]
 name = "bevy_ghx_grid"
-version = "0.7.0"
+version = "0.8.0"
 description = "Bevy plugins for 2D & 3D grids"
 repository = "https://github.com/Henauxg/bevy_ghx_grid"
 documentation = "https://docs.rs/bevy_ghx_grid"
@@ -19,11 +19,12 @@ reflect = ["ghx_grid/reflect"]
 serde = ["ghx_grid/serde"]
 # Compiles the grid debug plugin and its systems
 debug-plugin = [
-    "bevy/bevy_gizmos", # Support drawing debug lines and shapes
-    "bevy/bevy_render", # Rendering framework core
+    "bevy/bevy_gizmos",
+    "bevy/bevy_gizmos_render",
+    "bevy/bevy_render",
 ]
 
 [dependencies]
-ghx_grid = { version = "0.7.0", features = ["bevy"] }
+ghx_grid = { version = "0.8.0", features = ["bevy"] }
 
-bevy = { version = "0.17", default-features = false, features = [] }
+bevy = { version = "0.18", default-features = false, features = [] }
