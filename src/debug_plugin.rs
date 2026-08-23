@@ -42,6 +42,12 @@ impl<T: CoordinateSystem> GridDebugPlugin<T> {
     }
 }
 
+impl<T: CoordinateSystem> Default for GridDebugPlugin<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<C: CartesianCoordinates> Plugin for GridDebugPlugin<C> {
     fn build(&self, app: &mut App) {
         app.add_systems(Update, (draw_debug_grids_3d::<C>, draw_debug_grids_2d::<C>))
@@ -61,37 +67,21 @@ impl<C: CartesianCoordinates> Plugin for GridDebugPlugin<C> {
 }
 
 /// Add this bundle to a [`bevy::prelude::Entity`] with a [`ghx_grid::cartesian::grid::CartesianGrid`] if you are using a 3d camera `Camera3d`.
-#[derive(Bundle)]
+#[derive(Bundle, Default)]
 pub struct DebugGridView3dBundle {
     /// Debug view configuration of the grid
     pub view: DebugGridView,
     /// 3d-specific component-marker for the debug view
     pub view_type: DebugGridView3d,
 }
-impl Default for DebugGridView3dBundle {
-    fn default() -> Self {
-        Self {
-            view_type: Default::default(),
-            view: Default::default(),
-        }
-    }
-}
 
 /// Add this bundle to a [`bevy::prelude::Entity`] with a [`ghx_grid::cartesian::grid::CartesianGrid`] if you are using a 2d camera `Camera2d`.
-#[derive(Bundle)]
+#[derive(Bundle, Default)]
 pub struct DebugGridView2dBundle {
     /// Debug view configuration of the grid
     pub view: DebugGridView,
     /// 2d-specific component-marker for the debug view
     pub view_type: DebugGridView2d,
-}
-impl Default for DebugGridView2dBundle {
-    fn default() -> Self {
-        Self {
-            view_type: Default::default(),
-            view: Default::default(),
-        }
-    }
 }
 
 /// Returns a position as a [`Vec3`] in world units (center of the grid node) from a [`CartesianPosition`] accompanied by a `node_size`, the size of a grid node in world units.

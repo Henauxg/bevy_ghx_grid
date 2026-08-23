@@ -76,24 +76,20 @@ pub fn despawn_debug_markers(
     for marker_event in marker_events.read() {
         match marker_event {
             MarkerDespawnEvent::Marker(marker_entity) => {
-                if let Ok(_) = markers.get(*marker_entity) {
+                if markers.get(*marker_entity).is_ok() {
                     commands.entity(*marker_entity).despawn();
                 }
             }
             MarkerDespawnEvent::Grid(grid_entity) => {
                 for (parent_grid, marker_entity) in markers.iter() {
                     if parent_grid.parent() == *grid_entity {
-                        if let Ok(_) = markers.get(marker_entity) {
-                            commands.entity(marker_entity).despawn();
-                        }
+                        commands.entity(marker_entity).despawn();
                     }
                 }
             }
             MarkerDespawnEvent::All => {
                 for (_parent_grid, marker_entity) in markers.iter() {
-                    if let Ok(_) = markers.get(marker_entity) {
-                        commands.entity(marker_entity).despawn();
-                    }
+                    commands.entity(marker_entity).despawn();
                 }
             }
         }

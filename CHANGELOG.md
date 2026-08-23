@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.9.0 (2026-08-23)
+
+- Update to use `ghx_grid` v0.9.0 and `bevy` 0.19.0
+- Added a `Default` implementation for `GridDebugPlugin`
+
 ## Version 0.8.0 (2026-01-18)
 
 - Update to use `ghx_grid` v0.8.0 and `bevy` 0.18.0
